@@ -25,7 +25,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/characters"
-              className="bg-yellow-400 text-black font-wizard font-bold px-8 py-4 rounded-xl text-lg shadow-[0_0_15px_rgba(255,255,150,0.6)] hover:shadow-[0_0_25px_rgba(255,255,200,0.9)] hover:scale-110 transition-all duration-300"
+              className="bg-yellow-400 text-black font-wizard font-bold px-8 py-4 rounded-xl text-lg  hover:scale-110 transition-all duration-300"
             >
               Ver personagens
             </Link>
@@ -47,12 +47,15 @@ export default function Home() {
         </div>
       </section>
 
+
       {/* Features Section */}
       <section id="features" className="py-20 px-4 fade-section">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-4xl font-wizard font-bold text-yellow-400 text-center mb-16">
             Conteúdos Disponíveis
           </h2>
+
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(255,255,150,0.4)] ">
@@ -73,6 +76,8 @@ export default function Home() {
               </div>
             </div>
 
+          
+
             {/* Card Feitiços */}
             <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(255,255,150,0.4)] ">
               <div className="text-center">
@@ -81,7 +86,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">Feitiços</h3>
                 <p className="text-gray-300 mb-6">
-                   Todos os feitiços do universo Harry Potter estão aqui.
+                  Todos os feitiços do universo Harry Potter estão aqui.
                 </p>
                 <Link
                   href="/spells"
