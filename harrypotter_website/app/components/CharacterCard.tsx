@@ -19,15 +19,16 @@ export default function CharacterCard({ character }: CharacterCardProps) {
     return (
         <div
             onClick={handleClick}
-            className="rounded-xl bg-cover shadow-2xl hover:scale-105 transition-all items-center cursor-pointer"
-            style={{ backgroundImage: "url('/images/letter.jpg')" }}
+            className=" bg-cover shadow-2xl hover:scale-105 transition-all items-center cursor-pointer"
+            style={{ backgroundImage: "url('/images/letter.jpg')" , margin: '10px' }}
+        
         >
 
-            <div className="relative flex items-center justify-center ">
-                <svg className="w-full h-full" viewBox="0 0 100 25" preserveAspectRatio="none">
+            <div className="relative w-full h-10 flex items-center justify-center " style={{marginTop: '1.5rem' }}  >
+                <svg className="w-full " viewBox="0 0 100 25" preserveAspectRatio="none">
                     <defs>
-                        <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-                            <feDropShadow dx="0" dy="1.5" stdDeviation="1" floodColor="black" floodOpacity="0.5" />
+                        <filter id="shadow" x="-70%" y="-70%" width="250%" height="250%">
+                            <feDropShadow dx="0" dy="1.5" stdDeviation="1" floodColor="black" floodOpacity="0.7" />
                         </filter>
                     </defs>
                     <polyline
@@ -39,12 +40,15 @@ export default function CharacterCard({ character }: CharacterCardProps) {
                     />
                 </svg>
 
-                <Image
+                 <Image
                     src={'/images/hogwarts-seal.png'}
                     alt={character.name}
-                    width={120}
-                    height={120}
-                    className="absolute rounded-full object-cover top-8"
+                    width={110}
+                    height={110}
+                    className="absolute rounded-full object-cover"
+                    style={{
+                        marginTop: '2.5rem',
+                    }}
                 />
             </div>
 

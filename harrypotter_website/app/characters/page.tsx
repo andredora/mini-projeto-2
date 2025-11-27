@@ -19,10 +19,10 @@ export default async function CharactersPage() {
         <Image
           src="/images/hogwarts.jpg"
           alt="Background"
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
-          className="opacity-50"
+          width={800}
+          height={600}
+          className="fixed inset-0 w-full fixed opacity-30 z-0"
+
         />
       </div>
 
@@ -35,14 +35,19 @@ export default async function CharactersPage() {
         </p>
       </div>
 
-      <div className=" grid grid-cols-4 auto-rows-[minmax(0,1fr)] gap-6  ">
-        {characters.slice(0, 50).map((char) => (
-          <CharacterCard key={char.id} character={char} />
+
+      <div
+        className="max-w-6xl mx-auto z-10 relative"
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 1fr)",
+          gap: "1.5rem",
+        }}
+      >
+        {characters.map((character) => (
+          <CharacterCard key={character.id} character={character} />
         ))}
-        
-
       </div>
-
     </div>
   );
 }
