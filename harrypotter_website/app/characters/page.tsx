@@ -27,7 +27,7 @@ export default async function CharactersPage() {
       </div>
 
       <div className="text-center mb-12 pt-8 z-10 relative">
-        <h1 className="text-6xl font-wizard text-yellow-400 drop-shadow-lg">
+        <h1 className="text-6xl text-yellow-400 drop-shadow-lg">
           Personagens
         </h1>
         <p className="text-lg mt-2">
@@ -37,7 +37,7 @@ export default async function CharactersPage() {
 
 
       <div
-        className="max-w-6xl mx-auto z-10 relative"
+        className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text']"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, 1fr)",

@@ -23,16 +23,11 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link
-              href="/characters"
-              className="bg-yellow-400 text-black font-wizard font-bold px-8 py-4 rounded-xl text-lg  hover:scale-110 transition-all duration-300"
-            >
-              Ver personagens
-            </Link>
+         
 
             <button
               onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-              className="text-yellow-400 font-wizard font-bold px-8 py-4 rounded-xl text-lg hover:zoom-in transition-all duration-300 border-2 border-yellow-400 hover:bg-yellow-400 hover:text-black"
+              className="bg-yellow-400 text-black font-wizard font-bold px-8 py-4 rounded-xl text-lg  hover:scale-110 transition-all duration-300"
             >
               Sobre o projeto
             </button>
@@ -58,7 +53,7 @@ export default function Home() {
 
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 hover:shadow-[0_0_25px_rgba(255,255,150,0.4)] ">
+            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 ">
               <div className="text-center">
                 <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <img src="/images/wizzard.png" className="w-20 h-20" />
@@ -79,7 +74,7 @@ export default function Home() {
           
 
             {/* Card Feitiços */}
-            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(255,255,150,0.4)] ">
+            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-1 ">
               <div className="text-center">
                 <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                   <img src="/images/wand.png" className="w-12 h-12" />

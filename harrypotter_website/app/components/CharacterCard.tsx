@@ -20,7 +20,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
         <div
             onClick={handleClick}
             className=" bg-cover shadow-2xl hover:scale-105 transition-all items-center cursor-pointer"
-            style={{ backgroundImage: "url('/images/letter.jpg')" , margin: '10px' }}
+            style={{ backgroundImage: "url('/images/letter.jpg')" , margin: '5px' }}
         
         >
 
