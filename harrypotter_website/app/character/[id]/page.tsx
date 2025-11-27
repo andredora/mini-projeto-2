@@ -44,16 +44,16 @@ export default async function CharacterPage({
     
             />
       
+      
+    <div className="text-black  p-8 flex flex-col justify-center items-center font-['Crimson_Text'] relative"
+    style={{marginTop:'4rem'}}
+    >
       <Link
-        href="/"
+        href="/characters"
         className="absolute top-6 left-8 bg-yellow-400 text-black font-bold px-6 py-2 rounded-xl text-lg hover:scale-110 transition-all duration-300 z-10 font-['Cinzel']"
       >
         Voltar
       </Link>
-    <div className="text-black  p-8 flex flex-col justify-center items-center font-['Crimson_Text'] relative"
-    style={{marginTop:'4rem'}}
-    >
-      
 
       <div
         className="
