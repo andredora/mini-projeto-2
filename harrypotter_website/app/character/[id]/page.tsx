@@ -1,4 +1,3 @@
-// app/character/[id]/page.tsx
 import { HarryPotterCharacter } from "../../types/harryPotter";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -72,7 +71,6 @@ export default async function CharacterPage({
         style={{marginTop: "4rem", marginLeft: "5rem"}}
         >
 
-          {/* 📸 Container com margem */}
           <div className="ml-4">
             <img
               src={character.image || "/images/no-image.png"}
@@ -87,7 +85,6 @@ export default async function CharacterPage({
             />
           </div>
 
-          {/* 📜 Informações */}
           <div className="flex-1 text-lg text-[#3a2f23] leading-relaxed space-y-2 mr-4">
 
             <h1

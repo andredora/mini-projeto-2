@@ -1,4 +1,3 @@
-// components/CharacterCard.tsx
 'use client';
 
 import Image from "next/image";
