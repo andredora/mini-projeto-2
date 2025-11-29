@@ -5,8 +5,8 @@ import Image from "next/image";
 import Filters from "../components/Filters";
 import CharacterCard from "../components/CharacterCard";
 import PaginationControls from "../components/paginationControls";
-import { useGetCharactersQuery } from "../store/services/charactersApi";
-import { useFilters } from "../context/FiltersContext";
+import { useGetCharactersQuery } from "../../store/services/charactersApi";
+import { useFilters } from "../../context/FiltersContext";
 
 export default function CharactersPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,14 +16,14 @@ export default function CharactersPage() {
 
 
   const { data, isLoading, isError } = useGetCharactersQuery({
-  page: currentPage,
-  pageSize,
-  search,
-  house,
-});
+    page: currentPage,
+    pageSize,
+    search,
+    house,
+  });
 
-const characters = data?.characters || [];
-const totalItems = data?.total || 0;
+  const characters = data?.characters || [];
+  const totalItems = data?.total || 0;
 
 
   const handlePageChange = (page: number) => {
