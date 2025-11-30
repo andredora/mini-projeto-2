@@ -21,7 +21,7 @@ export default function CharacterCard({ character }: CharacterCardProps) {
   };
 
   const toggleFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Evita que clique abra a página
+    e.stopPropagation(); 
     if (isFavorite) {
       dispatch(removeCharacter(character.id));
     } else {
