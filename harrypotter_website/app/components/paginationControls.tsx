@@ -18,7 +18,7 @@ export default function PaginationControls({ currentPage, pageSize, totalItems, 
   if (end - start < pagesToShow - 1) start = Math.max(1, end - pagesToShow + 1);
 
   return (
-    <nav className="flex items-center justify-center gap-3 py-8">
+    <nav className="flex text-white items-center justify-center gap-3 py-8">
       
       <button onClick={() => canPrev && onPageChange(currentPage - 1)} disabled={!canPrev} className="px-3 py-1 bg-black rounded border border-yellow-400">
         ‹ Anterior
