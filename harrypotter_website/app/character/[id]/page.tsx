@@ -1,28 +1,37 @@
 import { HarryPotterCharacter } from "../../../types/harryPotter";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import BackButton from "../../components/backButton";
 
-
-async function getCharacter(id: string) {
+async function getCharacter(id: string): Promise<HarryPotterCharacter | null> {
   try {
-    const res = await fetch(`/api/characters/${id}`, {
-      cache: "no-store"
-    });
+    const res = await fetch("https://hp-api.onrender.com/api/characters");
+    if (!res.ok) throw new Error();
+    const all: HarryPotterCharacter[] = await res.json();
 
-    if (!res.ok) return null;
-    return await res.json();
+    return (
+      all.find(
+        (c) =>
+          c.id === id ||
+          c.name.toLowerCase().includes(id.toLowerCase())
+      ) || null
+    );
   } catch {
     return null;
   }
 }
 
-export default async function CharacterPage({ params }: any) {
+export default async function CharacterPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const character = await getCharacter(id);
 
   if (!character) notFound();
-  
+
   return (
 
     <div className="relative min-h-screen bg-black/50 py-20 px-8">
