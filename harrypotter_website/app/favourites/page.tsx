@@ -47,15 +47,12 @@ export default function FavoritesPage() {
 
                     <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {spells.map((spell) => (
-                                <div key={spell.name} className="relative">
-                                    <SpellCard spell={spell} />
-                                </div>
-                            ))}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl z-10 relative font-['Crimson_Text']">
+                            {spells.length > 0 &&
+                                spells.map((spell) => <SpellCard key={spell.name} spell={spell} />)}
                         </div>
                     </div>
-                )}
+                )}  ;
             </div>
         </div>
     );
