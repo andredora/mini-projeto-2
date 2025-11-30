@@ -25,7 +25,6 @@ export default function CharactersPage() {
   const characters = data?.characters || [];
   const totalItems = data?.total || 0;
 
-
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
