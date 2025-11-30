@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-pt">
-      <body className="bg-cover bg-center bg-fixed">
+      <body className="bg-cover bg-center bg-fixed bg-black/50">
         <AppProviders>
             <ContentSwitcher />
             {children}

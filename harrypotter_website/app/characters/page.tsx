@@ -31,55 +31,54 @@ export default function CharactersPage() {
 
   return (
     <div className="relative min-h-screen py-20 bg-black/50">
-      <Image
-        src="/images/hogwarts.jpg"
-        alt="Background"
-        width={1800}
-        height={900}
-        className="fixed inset-0 w-full opacity-30 z-0"
-      />
+      <div className="fixed inset-0 w-full h-full z-0">
+        <Image
+          src="/images/hogwarts.jpg"
+          alt="Background"
+          fill
+          className="object-cover "
+        />
 
-      <div className="text-center mb-6 pt-8 z-10 relative">
+        <div className="absolute inset-0 bg-black/70 pointer-events-none"></div>
+      </div>
+
+      <div className="text-center pt-8 z-10 relative">
         <h1 className="text-6xl text-yellow-400 drop-shadow-lg">Personagens</h1>
-        <p className="text-lg mt-2">Conhece todas as personagens aqui!</p>
+        <p className="text-lg text-white mt-2">Conhece todas as personagens aqui!</p>
       </div>
 
       <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
         <Filters />
 
-        {isLoading && (
-          <div className="grid grid-cols-4 gap-6">
-            {Array.from({ length: pageSize }).map((_, i) => (
-              <div
-                key={i}
-                className="h-64 w-full bg-black/30 rounded-xl animate-pulse"
-              ></div>
-            ))}
-          </div>
-        )}
-
-        {isError && (
-          <p className="text-red-500">Erro ao carregar personagens</p>
-        )}
-
         {!isLoading && !isError && (
-          <>
-            <div className="grid grid-cols-4 gap-6">
-              {characters.map((char) => (
-                <CharacterCard key={char.id} character={char} />
-              ))}
-            </div>
+  <>
+    {characters.length === 0 ? (
+      <h1 className="text-white text-center col-span-full">
+        Infelizmente não existe nenhum personagem com esses filtros
+      </h1>
+    ) : (
+      <>
+        <div className="grid grid-cols-4 gap-6">
+          {characters.map((char) => (
+            <CharacterCard key={char.id} character={char} />
+          ))}
+        </div>
 
-            <PaginationControls
-              currentPage={currentPage}
-              pageSize={pageSize}
-              totalItems={totalItems}
-              onPageChange={handlePageChange}
-            />
-
-          </>
+        {/* Paginação só aparece se houver personagens */}
+        {characters.length > 0 && (
+          <PaginationControls
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalItems={totalItems}
+            onPageChange={handlePageChange}
+          />
         )}
+      </>
+    )}
+  </>
+        )}
+
       </div>
     </div>
   );
-}
+} 
