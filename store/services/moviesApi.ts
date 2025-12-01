@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Movie {
-    id: string;
+    serial: string;
     title: string;
     release_date: string;
     poster: string;

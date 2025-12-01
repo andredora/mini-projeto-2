@@ -8,10 +8,10 @@ export default function ContentSwitcher() {
 
   const links = [
     { name: 'Home', href: '/' },
-    { name: 'Characters', href: '/characters' },
-    { name: 'Spells', href: '/spells' },
-    { name: 'Movies', href: '/movies' },
-    { name: 'Favourites', href: '/favourites' },
+    { name: 'Personagens', href: '/characters' },
+    { name: 'Feitiços', href: '/spells' },
+    { name: 'Filmes', href: '/movies' },
+    { name: 'Favoritos', href: '/favourites' },
   ];
 
   return (
