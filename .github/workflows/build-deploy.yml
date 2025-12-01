@@ -10,9 +10,6 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: harrypotter_website  
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
