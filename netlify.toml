@@ -1,0 +1,4 @@
+[build]
+  base = "harrypotter_website"
+  publish = "harrypotter_website/.next"
+  command = "npm run build"

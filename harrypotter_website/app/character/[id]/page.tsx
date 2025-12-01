@@ -35,14 +35,16 @@ export default async function CharacterPage({
   return (
 
     <div className="relative min-h-screen bg-black/50 py-20 px-8">
-      <Image
-        src="/images/hogwarts.jpg"
-        alt="Background"
-        width={800}
-        height={600}
-        className="fixed inset-0 w-full fixed opacity-30 z-0"
+      <div className="fixed inset-0 w-full h-full z-0">
+        <Image
+          src="/images/hogwarts.jpg"
+          alt="Background"
+          fill
+          className="object-cover "
+        />
 
-      />
+        <div className="absolute inset-0 bg-black/70 pointer-events-none"></div>
+      </div>
 
       <div className="relative py-2 px-8">
         <BackButton />
@@ -73,16 +75,12 @@ export default async function CharacterPage({
 
             <div className="ml-4">
               <img
-                src={character.image || "/images/no-image.png"}
+                src={character.image?.trim() ? character.image : "/images/no-image.png"}
                 alt={character.name}
-                className="
-                object-cover 
-                object-center
-                rounded-md
-                shadow-lg
-              "
-                style={{ width: '250px', height: '400px' }}
+                className="object-cover object-center rounded-md shadow-lg"
+                style={{ width: "250px", height: "400px" }}
               />
+
             </div>
 
             <div className="flex-1 text-lg text-[#3a2f23] leading-relaxed space-y-2 mr-4">
