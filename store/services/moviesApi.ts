@@ -14,7 +14,6 @@ export const moviesApi = createApi({
         getMovies: builder.query<Movie[], void>({
             query: () => "/movies",
             transformResponse: (response: any) => {
-                // Se a API retorna um array direto, apenas retorna-o
                 if (Array.isArray(response)) return response;
                 return [];
             },
