@@ -47,7 +47,7 @@ export default function CharactersPage() {
         <p className="text-lg text-white mt-2">Conhece todas as personagens aqui!</p>
       </div>
 
-      <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
+      <div className="max-w-6xl mx-auto z-10 relative  p-10">
         <Filters />
 
         {!isLoading && !isError && (
@@ -58,13 +58,12 @@ export default function CharactersPage() {
       </h1>
     ) : (
       <>
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid grid-cols-4 gap-6 font-['Crimson_Text']">
           {characters.map((char) => (
             <CharacterCard key={char.id} character={char} />
           ))}
         </div>
 
-        {/* Paginação só aparece se houver personagens */}
         {characters.length > 0 && (
           <PaginationControls
             currentPage={currentPage}

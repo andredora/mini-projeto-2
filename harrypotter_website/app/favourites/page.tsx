@@ -28,11 +28,11 @@ export default function FavoritesPage() {
 
                 <h2 className="text-3xl text-yellow-300">Personagens</h2>
                 {characters.length === 0 ? (
-                    <p>Nenhum personagem favorito.</p>
+                    <p className="mt-6 text-white">Nenhum personagem favorito.</p>
                 ) : (
                     <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
 
-                        <div className="grid grid-cols-4 gap-6">
+                        <div className="grid grid-cols-4 gap-6 mb-4">
                             {characters.map((char) => (
                                 <CharacterCard key={char.id} character={char} />
                             ))}
@@ -40,9 +40,9 @@ export default function FavoritesPage() {
                     </div>
                 )}
 
-                <h2 className="text-3xl mb-4 text-yellow-300">Feitiços</h2>
+                <h2 className="text-3xl mt-8 mb-6 text-yellow-300">Feitiços</h2>
                 {spells.length === 0 ? (
-                    <p>Nenhum feitiço favorito.</p>
+                    <p className="text-white">Nenhum feitiço favorito.</p>
                 ) : (
 
                     <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
@@ -52,7 +52,7 @@ export default function FavoritesPage() {
                                 spells.map((spell) => <SpellCard key={spell.name} spell={spell} />)}
                         </div>
                     </div>
-                )}  ;
+                )}  
             </div>
         </div>
     );
