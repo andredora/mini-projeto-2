@@ -14,10 +14,12 @@ import storage from "redux-persist/lib/storage"; // usa localStorage
 import { charactersApi } from "./services/charactersApi";
 import { spellsApi } from "./services/spellsApi";
 import favoritesReducer from "./slices/favoritesSlice";
+import { moviesApi } from "./services/moviesApi";
 
 const rootReducer = combineReducers({
   [charactersApi.reducerPath]: charactersApi.reducer,
   [spellsApi.reducerPath]: spellsApi.reducer,
+  [moviesApi.reducerPath]: moviesApi.reducer,
   favorites: favoritesReducer,
 });
 
@@ -38,7 +40,8 @@ export const store = configureStore({
       },
     })
       .concat(charactersApi.middleware)
-      .concat(spellsApi.middleware),
+      .concat(spellsApi.middleware)
+      .concat(moviesApi.middleware),
 });
 
 export const persistor = persistStore(store);

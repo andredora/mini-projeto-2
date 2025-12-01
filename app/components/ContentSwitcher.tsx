@@ -10,6 +10,7 @@ export default function ContentSwitcher() {
     { name: 'Home', href: '/' },
     { name: 'Characters', href: '/characters' },
     { name: 'Spells', href: '/spells' },
+    { name: 'Movies', href: '/movies' },
     { name: 'Favourites', href: '/favourites' },
   ];
 
