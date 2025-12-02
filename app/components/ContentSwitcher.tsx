@@ -2,6 +2,64 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import styled, { css } from 'styled-components';
+
+const Nav = styled.nav`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 50;
+`;
+
+const NavContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+`;
+
+const Logo = styled.div`
+  color: #facc15;
+  font-size: 1.25rem;
+  font-weight: bold;
+`;
+
+const LinksContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
+
+const NavLink = styled(Link)<{ active?: boolean }>`
+  position: relative;
+  font-weight: 600;
+  color: #fcd34d; /* text-yellow-200 */
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.3s;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(to right, #3b82f6, #a855f7); /* from-blue-400 to-purple-500 */
+    transition: all 0.3s;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  ${props => props.active && css`
+    &::after {
+      width: 100%;
+    }
+  `}
+`;
 
 export default function ContentSwitcher() {
   const pathname = usePathname();
@@ -15,32 +73,17 @@ export default function ContentSwitcher() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-black/60 z-50">
-      <div className="px-4 py-3 flex items-center justify-between">
-        <div className="text-yellow-400 font-parchment text-xl font-bold">
-          Harry Potter
-        </div>
-
-        <div className="flex justify-between gap-6">
+    <Nav>
+      <NavContainer>
+        <Logo>Harry Potter</Logo>
+        <LinksContainer>
           {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`
-                relative font-wizard font-semibold text-yellow-200 px-4 py-2 rounded-md
-                transition-all duration-300
-                after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0
-                after:bg-gradient-to-r after:from-blue-400 after:to-purple-500
-                after:transition-all after:duration-300
-                hover:after:w-full
-                ${pathname === link.href ? 'after:w-full' : ''}
-              `}
-            >
+            <NavLink key={link.href} href={link.href} active={pathname === link.href}>
               {link.name}
-            </Link>
+            </NavLink>
           ))}
-        </div>
-      </div>
-    </nav>
+        </LinksContainer>
+      </NavContainer>
+    </Nav>
   );
 }

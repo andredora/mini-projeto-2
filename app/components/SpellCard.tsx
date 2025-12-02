@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { addSpell, removeSpell } from "../../store/slices/favoritesSlice";
+import styled from "styled-components";
 
 export interface Spell {
     name: string;
@@ -12,6 +13,54 @@ export interface Spell {
 interface SpellCardProps {
     spell: Spell;
 }
+
+const Card = styled.div`
+  position: relative;
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.375rem; /* rounded-md */
+  border: 1px solid #c2b49a;
+  box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+  background-image: url('/images/letter.jpg');
+  background-size: cover;
+  background-position: center;
+`;
+
+const FavoriteButton = styled.div`
+  position: absolute;
+  top: 0.5rem; /* top-2 */
+  right: 0.5rem; /* right-2 */
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+
+  span {
+    color: #facc15; /* text-yellow-400 */
+    font-size: 1rem;
+  }
+`;
+
+const SpellName = styled.h2`
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem; /* text-2xl */
+  margin-bottom: 0.5rem;
+  color: #3a2f23;
+`;
+
+const SpellDescription = styled.p`
+  font-weight: 900; /* font-black */
+  color: #3a2f23;
+`;
+
+const SpellType = styled.p`
+  font-size: 0.875rem; /* text-sm */
+  color: #3a2f23;
+`;
 
 export default function SpellCard({ spell }: SpellCardProps) {
     const dispatch = useAppDispatch();
@@ -27,25 +76,14 @@ export default function SpellCard({ spell }: SpellCardProps) {
     };
 
     return (
-        <div
-            className="p-6 rounded-md border border-[#c2b49a] shadow-lg bg-cover bg-center relative"
-            style={{ backgroundImage: "url('/images/letter.jpg')" }}
-        >
-            <div
-                className="absolute w-8 h-8 flex items-center justify-center top-2 right-2 bg-black rounded-full cursor-pointer z-10"
-                onClick={toggleFavorite}
-            >
-                <span className="text-yellow-400">{isFavorite ? "★" : "☆"}</span>
-            </div>
+        <Card>
+            <FavoriteButton onClick={toggleFavorite}>
+                <span>{isFavorite ? "★" : "☆"}</span>
+            </FavoriteButton>
 
-
-            <h2 className="text-2xl mb-2 font-['Cinzel'] text-[#3a2f23]">
-                {spell.name}
-            </h2>
-            {spell.description && (
-                <p className="font-black text-[#3a2f23]">{spell.description}</p>
-            )}
-            {spell.type && <p className="text-sm text-[#3a2f23]">Tipo: {spell.type}</p>}
-        </div>
+            <SpellName>{spell.name}</SpellName>
+            {spell.description && <SpellDescription>{spell.description}</SpellDescription>}
+            {spell.type && <SpellType>Tipo: {spell.type}</SpellType>}
+        </Card>
     );
 }

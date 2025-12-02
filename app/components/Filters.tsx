@@ -1,31 +1,73 @@
-"use client";
+'use client';
 
 import { useFilters } from "../../context/FiltersContext";
+import styled from "styled-components";
+
+const FiltersContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* gap-8 */
+  margin-bottom: 1.5rem; /* mb-6 */
+  align-items: flex-start;
+
+  @media(min-width: 768px) {
+    flex-direction: row;
+    align-items: center;
+  }
+`;
+
+const Input = styled.input`
+  padding: 0.5rem; /* p-2 */
+  height: 2.5rem; /* h-10 */
+  border-radius: 0.375rem; /* rounded */
+  border: 1px solid #facc15; /* border-yellow-400 */
+  background-color: black;
+  color: white;
+  flex: 1;
+  outline: none;
+
+  &:focus {
+    ring: none;
+    box-shadow: 0 0 0 2px #facc15;
+  }
+`;
+
+const Select = styled.select`
+  padding: 0.5rem; /* p-2 */
+  height: 2.5rem; /* h-10 */
+  border-radius: 0.375rem;
+  border: 1px solid #facc15;
+  background-color: black;
+  color: white;
+  outline: none;
+
+  &:focus {
+    box-shadow: 0 0 0 2px #facc15;
+  }
+`;
 
 export default function Filters() {
-    const { search, house, setSearch, setHouse } = useFilters();
+  const { search, house, setSearch, setHouse } = useFilters();
 
-    return (
-        <div className="flex md:flex-row  gap-8 mb-6 items-start md:items-center">
-            <input
-                type="text"
-                placeholder="Pesquisar personagem"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="p-2 h-10  rounded border border-yellow-400 bg-black text-white focus:outline-none focus:ring-2 focus:ring-yellow-400 flex-1"
-            />
+  return (
+    <FiltersContainer>
+      <Input
+        type="text"
+        placeholder="Pesquisar personagem"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
 
-            <select
-                value={house}
-                onChange={(e) => setHouse(e.target.value)}
-                className="p-2 h-10 text-white rounded border border-yellow-400 bg-black  focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            >
-                <option value="">Todas as casas</option>
-                <option value="Gryffindor">Gryffindor</option>
-                <option value="Slytherin">Slytherin</option>
-                <option value="Ravenclaw">Ravenclaw</option>
-                <option value="Hufflepuff">Hufflepuff</option>
-            </select>
-        </div>
-    );
+      <Select
+        value={house}
+        onChange={(e) => setHouse(e.target.value)}
+      >
+        <option value="">Todas as casas</option>
+        <option value="Gryffindor">Gryffindor</option>
+        <option value="Slytherin">Slytherin</option>
+        <option value="Ravenclaw">Ravenclaw</option>
+        <option value="Hufflepuff">Hufflepuff</option>
+      </Select>
+    </FiltersContainer>
+  );
 }

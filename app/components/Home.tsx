@@ -1,196 +1,339 @@
 'use client';
 
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
+import styled, { keyframes } from 'styled-components';
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+`;
+
+const bounce = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+`;
+
+const Container = styled.div`
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #111827, #000);
+`;
+
+const HeroSection = styled.section`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+`;
+
+const HeroBackground = styled.div<{ $image: string; $opacity?: number }>`
+  position: absolute;
+  inset: 0;
+  background-image: url(${props => props.$image});
+  background-size: cover;
+  background-position: center;
+  opacity: ${props => props.$opacity ?? 1};
+`;
+
+const HeroOverlay = styled.div`
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, black, transparent, black);
+`;
+
+const HeroContent = styled.div`
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 0 1rem;
+  animation: ${fadeIn} 1.5s ease-out;
+`;
+
+const HeroTitle = styled.h1`
+  font-size: 6rem;
+  font-weight: bold;
+  color: #facc15;
+  margin-bottom: 1.75rem;
+  @media(max-width: 768px) { font-size: 4rem; }
+`;
+
+const HeroText = styled.p`
+  font-size: 1.5rem;
+  color: #d1d5db;
+  margin-bottom: 2rem;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  @media(max-width: 768px) { font-size: 1.25rem; }
+`;
+
+const HeroButton = styled.button`
+  background-color: #facc15;
+  color: black;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover { transform: scale(1.1); }
+`;
+
+const ScrollIndicator = styled.div`
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: ${bounce} 1.5s infinite;
+
+  .inner {
+    width: 0.25rem;
+    height: 0.75rem;
+    background: #facc15;
+    border-radius: 9999px;
+    margin-top: 0.5rem;
+  }
+`;
+
+const Section = styled.section<{ $bgImage?: string }>`
+  position: relative;
+  padding: 5rem 1rem;
+
+  ${props => props.$bgImage && `
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url(${props.$bgImage});
+      background-size: cover;
+      background-position: center;
+      opacity: 0.5;
+      z-index: 0;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, black, transparent, black);
+      z-index: 1;
+    }
+  `}
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 4rem;
+  font-weight: bold;
+  color: #facc15;
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+  @media(max-width: 768px) { font-size: 2.5rem; }
+`;
+
+const Grid = styled.div<{ cols?: number }>`
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(${props => props.cols ?? 1}, 1fr);
+  @media(max-width: 400px) { grid-template-columns: 1fr; }
+  max-width: 72rem; 
+  item-align: center;
+  margin: 0 auto;
+    
+
+`;
+
+const Card = styled.div`
+  position: relative;
+  z-index: 10;
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  padding: 2rem;
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  transition: all 0.3s;
+  items-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  &:hover { border-color: #facc15; transform: translateY(-0.5rem); }
+`;
+
+const CardIcon = styled.div<{ size?: string }>`
+  width: ${props => props.size ?? '5rem'};
+  height: ${props => props.size ?? '5rem'};
+  background-color: #facc15;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 1.5rem auto;
+`;
+
+const CardTitle = styled.h3`
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fbbf24;
+  margin-bottom: 1rem;
+  text-align: center;
+`;
+
+const CardText = styled.p`
+  color: #d1d5db;
+  margin-bottom: 1.5rem;
+  text-align: center;
+`;
+
+const CardLink = styled(Link)`
+  color: black;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  text-align: center;
+  display: inline-block;
+  transition: all 0.3s;
+  background-color: #facc15; 
+`;
+
+const TechCardContainer = styled.div`
+  max-width: 72rem; 
+  margin: 3rem auto 0 auto;
+  backdrop-filter: blur(20px);
+  border-radius: 2rem;
+  padding: 2rem;
+  border: 1px solid rgba(250, 204, 21, 0.3);
+  transition: all 0.3s;
+  &:hover { border-color: #facc15; transform: translateY(-0.5rem); }
+`;
+
+const TechGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+  @media(min-width: 640px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+`;
+
+const TechItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const TechIcon = styled.div`
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  border: 1px solid #facc15;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+`;
+
+const TechName = styled.span`
+  color: #d1d5db;
+  font-size: 0.875rem;
+  text-align: center;
+`;
+
+
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black">
+    <Container>
+      <HeroSection>
+        <HeroBackground $image="/images/Hogwarts.avif" $opacity={0.5} />
+        <HeroOverlay />
+        <HeroContent>
+          <HeroTitle>Harry Potter</HeroTitle>
+          <HeroText>Website feito para quem gosta do universo de Harry Potter.</HeroText>
+          <HeroButton onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}>
+            Sobre o projeto
+          </HeroButton>
+        </HeroContent>
+        <ScrollIndicator><div className="inner" /></ScrollIndicator>
+      </HeroSection>
 
-      <section className=" h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute h-full inset-0 bg-[url('/images/Hogwarts.avif')] bg-cover bg-center opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
+      <Section id="features" $bgImage="/images/hogwarts.jpg">
+        <SectionTitle>Conteúdos Disponíveis</SectionTitle>
+        <Grid cols={3}>
+          <Card>
+            <CardIcon><img src="/images/wizzard.png" className="w-20 h-20" /></CardIcon>
+            <CardTitle>Personagens</CardTitle>
+            <CardText>Aqui encontras todas as personagens do universo Harry Potter</CardText>
+            <CardLink href="/characters">Ver Personagens</CardLink>
+          </Card>
+          <Card>
+            <CardIcon><img src="/images/wand.png" className="w-12 h-12" /></CardIcon>
+            <CardTitle>Feitiços</CardTitle>
+            <CardText>Todos os feitiços do universo Harry Potter estão aqui.</CardText>
+            <CardLink href="/spells">Explorar Feitiços</CardLink>
+          </Card>
+          <Card>
+            <CardIcon><img src="/images/movie.png" className="h-14" /></CardIcon>
+            <CardTitle>Filmes</CardTitle>
+            <CardText>Todos os filmes de Harry Potter.</CardText>
+            <CardLink href="/movies">Ver Filmes</CardLink>
+          </Card>
+        </Grid>
+      </Section>
 
-        <div className="relative z-10 text-center text-white px-4 animate-fade-in">
-          <h1 className="text-6xl md:text-8xl font-wizard font-bold text-yellow-400 mb-7  ">
-            Harry Potter
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl ">
-            Website feito para quem gosta do universo de Harry Potter.
-          </p>
+      <Section id="about-project">
+        <SectionTitle>Sobre o Projeto</SectionTitle>
+        <Grid cols={2}>
+          <Card>
+            <CardIcon><img src="/images/projeto.png" className="w-14 h-14" /></CardIcon>
+            <CardTitle>Projeto</CardTitle>
+            <CardText>
+              Este projeto foi desenvolvido por <span style={{ color: '#facc15', fontWeight: 'bold' }}>André Dora</span>.
+              É um website que apresenta personagens, feitiços e filmes do universo de Harry Potter.
+            </CardText>
+          </Card>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-
-            <button
-              onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
-              className="bg-yellow-400 text-black font-wizard font-bold px-8 py-4 rounded-xl text-lg  hover:scale-110 transition-all duration-300"
-            >
-              Sobre o projeto
-            </button>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-yellow-400 rounded-full mt-2"></div>
-          </div>
-        </div>
-      </section>
-
-
-      <section id="features" className="py-20 px-4 relative fade-section">
-
-        <div className="absolute inset-0 bg-[url('/images/hogwarts.jpg')] bg-cover bg-center opacity-50"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black"></div>
-
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl font-wizard font-bold text-yellow-400 text-center mb-16 z-10 relative">
-            Conteúdos Disponíveis
-          </h2>
-
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 ">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <img src="/images/wizzard.png" className="w-20 h-20" />
-                </div>
-                <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">Personagens</h3>
-                <p className="text-gray-300 mb-6">
-                  Aqui encontras todas as personagens do universo Harry Potter
-                </p>
-                <Link
-                  href="/characters"
-                  className="bg-yellow-500 text-black font-wizard font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors duration-300 inline-block"
-                >
-                  Ver Personagens
-                </Link>
-              </div>
-            </div>
-
-            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-1 ">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <img src="/images/wand.png" className="w-12 h-12" />
-                </div>
-                <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">Feitiços</h3>
-                <p className="text-gray-300 mb-6">
-                  Todos os feitiços do universo Harry Potter estão aqui.
-                </p>
-                <Link
-                  href="/spells"
-                  className="bg-yellow-500 text-black font-wizard font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors duration-300 inline-block"
-                >
-                  Explorar Feitiços
-                </Link>
-              </div>
-            </div>
-
-            <div className=" backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 transition-all duration-300">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <img src="/images/movie.png" className=" h-14" />
-                </div>
-
-                <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">
-                  Filmes
-                </h3>
-
-                <p className="text-gray-300 mb-6">
-                  Todos os filmes de Harry Potter.
-                </p>
-
-                <Link
-                  href="/movies"
-                  className="bg-yellow-500 text-black font-wizard font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors duration-300 inline-block"
-                >
-                  Ver Filmes
-                </Link>
-              </div>
-            </div>
-
-
-          </div>
-        </div>
-      </section>
-
-      <section id="about-project" className="py-20 px-4 bg-black/60 fade-section">
-        <h2 className="text-4xl font-wizard font-bold text-yellow-400 text-center mb-16">
-          Sobre o Projeto
-        </h2>
-
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
-          <div className="backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 transition-all">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <img src="/images/projeto.png" className="w-14 h-14" />
-              </div>
-              <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">
-                Projeto
-              </h3>
-              <p className="text-gray-300">
-                Este projeto foi desenvolvido por <span className="text-yellow-400 font-bold">André Dora</span>.
-                É um website que apresenta personagens, feitiços e filmes do universo de Harry Potter.
-              </p>
-            </div>
-          </div>
-
-          <div className="backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 transition-all">
-            <div className="text-center">
-              <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6">
-                <img src="/images/api.png" className="w-14 h-14" />
-              </div>
-              <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-4">
-                API's
-              </h3>
-              <p className="text-gray-300">
-                Personagens e feitiços foram obtidos da API{" "}
-                <a
-                  href="https://hp-api.onrender.com"
-                  target="_blank"
-                  className="text-yellow-400 underline hover:text-yellow-300"
-                >
-                  hp-api
-                </a>.
-                <br />
-                Filmes obtidos através da{" "}
-                <a
-                  href="https://potterhead-api.vercel.app/api/movies"
-                  target="_blank"
-                  className="text-yellow-400 underline hover:text-yellow-300"
-                >
-                  Potterhead API
-                </a>.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className=" max-w-6xl mx-auto mt-12 backdrop-blur-xl rounded-2xl p-8 border border-yellow-400/30 hover:border-yellow-400 hover:-translate-y-2 transition-all">
-          <div className="text-center">
-            <h3 className="text-2xl font-wizard font-bold text-yellow-300 mb-8">
+          <Card>
+            <CardIcon><img src="/images/api.png" className="w-14 h-14" /></CardIcon>
+            <CardTitle>API's</CardTitle>
+            <CardText>
+              Personagens e feitiços foram obtidos da API{' '}
+              <a href="https://hp-api.onrender.com" target="_blank" style={{ color: '#facc15', textDecoration: 'underline' }}>hp-api</a>.
+              <br />
+              Filmes obtidos através da{' '}
+              <a href="https://potterhead-api.vercel.app/api/movies" target="_blank" style={{ color: '#facc15', textDecoration: 'underline' }}>Potterhead API</a>.
+            </CardText>
+          </Card>
+        </Grid>
+        <TechCardContainer>
+          <div style={{ textAlign: 'center' }}>
+            <h3 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#fbbf24', marginBottom: '2rem' }}>
               Tecnologias Usadas
             </h3>
-
-            <div className="grid grid-cols-3 sm:grid-cols-5 gap-6 justify-items-center">
+            <TechGrid>
               {[
                 { name: "Next.js", img: "/images/nextjs.png" },
                 { name: "Tailwind CSS", img: "/images/tailwind.png" },
                 { name: "Redux Toolkit", img: "/images/redux.png" },
                 { name: "React Context", img: "/images/react.png" },
                 { name: "ESLint", img: "/images/eslint.png" },
-              ].map((tech) => (
-                <div key={tech.name} className="flex flex-col items-center">
-                  <div className="w-16 h-16 rounded-full border border-yellow-400 bg-black flex items-center justify-center mb-2 overflow-hidden">
-                    <img src={tech.img} alt={tech.name} className="w-16 h-16 object-contain" />
-                  </div>
-                  <span className="text-gray-300 text-sm text-center">{tech.name}</span>
-                </div>
+              ].map(tech => (
+                <TechItem key={tech.name}>
+                  <TechIcon>
+                    <img src={tech.img} alt={tech.name} style={{ width: '4rem', height: '4rem', objectFit: 'contain' }} />
+                  </TechIcon>
+                  <TechName>{tech.name}</TechName>
+                </TechItem>
               ))}
-            </div>
+            </TechGrid>
           </div>
-        </div>
-      </section>
-    </div>
+        </TechCardContainer>
+
+
+      </Section>
+    </Container>
   );
 }
