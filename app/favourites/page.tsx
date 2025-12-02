@@ -1,59 +1,136 @@
-"use client";
+'use client';
 
-import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { removeCharacter, removeSpell } from "../../store/slices/favoritesSlice";
+import { useAppSelector } from "../../store/hooks";
 import CharacterCard from "../components/CharacterCard";
 import SpellCard from "../components/SpellCard";
 import Image from "next/image";
+import styled from "styled-components";
+
+const PageContainer = styled.div`
+  min-height: 100vh;
+  padding: 5rem 2rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+`;
+
+const BackgroundWrapper = styled.div`
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
+  .overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0,0,0,0.7);
+    pointer-events: none;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  z-index: 10;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Title = styled.h1`
+  font-size: 3.75rem;
+  color: #facc15;
+  margin-bottom: 2rem;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2.4rem;
+  color: #fbbf24;
+  margin-bottom: 1rem;
+`;
+
+const Message = styled.p`
+  color: white;
+  margin-top: 1.5rem;
+`;
+
+const GridWrapper = styled.div`
+  max-width: 72rem;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  padding: 2.5rem;
+  font-family: 'Crimson Text', serif;
+`;
+
+const CharacterGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+`;
+
+const SpellGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 80rem;
+  width: 100%;
+  font-family: 'Crimson Text', serif;
+
+  @media(min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media(min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
 
 export default function FavoritesPage() {
-    const { characters, spells } = useAppSelector((state) => state.favorites);
-    const dispatch = useAppDispatch();
+  const { characters, spells } = useAppSelector((state) => state.favorites);
 
-    return (
-        <div className="min-h-screen p-8 py-20 flex flex-col items-center">
+  return (
+    <PageContainer>
+      <BackgroundWrapper>
+        <Image
+          src="/images/hogwarts.jpg"
+          alt="Background"
+          fill
+          className="object-cover"
+        />
+        <div className="overlay" />
+      </BackgroundWrapper>
 
-            <div className="fixed inset-0 w-full h-full z-0">
-                <Image
-                    src="/images/hogwarts.jpg"
-                    alt="Background"
-                    fill
-                    className="object-cover "
-                />
+      <ContentWrapper>
+        <Title>Favoritos</Title>
 
-                <div className="absolute inset-0 bg-black/70 pointer-events-none"></div>
-            </div>
-            <div className="z-10 items-center justify-center relative flex flex-col">
-                <h1 className="text-6xl text-yellow-400 mb-12">Favoritos</h1>
+        <SectionTitle>Personagens</SectionTitle>
+        {characters.length === 0 ? (
+          <Message>Nenhum personagem favorito.</Message>
+        ) : (
+          <GridWrapper>
+            <CharacterGrid>
+              {characters.map((char) => (
+                <CharacterCard key={char.id} character={char} />
+              ))}
+            </CharacterGrid>
+          </GridWrapper>
+        )}
 
-                <h2 className="text-3xl text-yellow-300">Personagens</h2>
-                {characters.length === 0 ? (
-                    <p className="mt-6 text-white">Nenhum personagem favorito.</p>
-                ) : (
-                    <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
-
-                        <div className="grid grid-cols-4 gap-6 mb-4">
-                            {characters.map((char) => (
-                                <CharacterCard key={char.id} character={char} />
-                            ))}
-                        </div>
-                    </div>
-                )}
-
-                <h2 className="text-3xl mt-8 mb-6 text-yellow-300">Feitiços</h2>
-                {spells.length === 0 ? (
-                    <p className="text-white">Nenhum feitiço favorito.</p>
-                ) : (
-
-                    <div className="max-w-6xl mx-auto z-10 relative font-['Crimson_Text'] p-10">
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl z-10 relative font-['Crimson_Text']">
-                            {spells.length > 0 &&
-                                spells.map((spell) => <SpellCard key={spell.name} spell={spell} />)}
-                        </div>
-                    </div>
-                )}  
-            </div>
-        </div>
-    );
+        <SectionTitle>Feitiços</SectionTitle>
+        {spells.length === 0 ? (
+          <Message>Nenhum feitiço favorito.</Message>
+        ) : (
+          <GridWrapper>
+            <SpellGrid>
+              {spells.map((spell) => (
+                <SpellCard key={spell.name} spell={spell} />
+              ))}
+            </SpellGrid>
+          </GridWrapper>
+        )}
+      </ContentWrapper>
+    </PageContainer>
+  );
 }

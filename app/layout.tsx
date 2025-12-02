@@ -12,10 +12,14 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-pt">
+      <head>
+        <title>Harry Potter API</title>
+        <link rel="icon" sizes="32x4"  href="/images/hp.png" />
+      </head>
       <body className="bg-cover bg-center bg-fixed bg-black/50">
         <AppProviders>
-            <ContentSwitcher />
-            {children}
+          <ContentSwitcher />
+          {children}
         </AppProviders>
       </body>
     </html>
